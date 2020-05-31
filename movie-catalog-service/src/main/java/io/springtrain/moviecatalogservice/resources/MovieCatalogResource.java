@@ -35,9 +35,9 @@ public class MovieCatalogResource {
         WebClient.Builder builder = WebClient.builder();
 
         //get all rated movies Ids
-        UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/"+ userId, UserRating.class);
+        UserRating userRating = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/"+ userId, UserRating.class);
 
-        return ratings.getRatings().stream().map(rating -> {
+        return userRating.getRatings().stream().map(rating -> {
 
             //for each movie id call movie info service and get details
             Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
